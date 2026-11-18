@@ -1,0 +1,11 @@
+.app {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.app h1 {
+  margin: 0;
+  font-weight: var(--fw-title);
+  color: var(--purple);
+}
