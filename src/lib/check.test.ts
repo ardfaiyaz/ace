@@ -17,6 +17,11 @@ const blank: AceRequest = { ...EMPTY_REQUEST };
 const get = (req: AceRequest, id: CheckId) => checkRequest(req).find((r) => r.id === id)!;
 
 describe('checkRequest', () => {
+  it('empty request is not specific and scores 0', () => {
+    expect(get(blank, 'vague').passed).toBe(false);
+    expect(score(checkRequest(blank))).toBe(0);
+  });
+
   it('returns six results in fixed order', () => {
     expect(checkRequest(base).map((r) => r.id)).toEqual(['repro', 'doneWhen', 'vague', 'area', 'constraints', 'expected']);
   });

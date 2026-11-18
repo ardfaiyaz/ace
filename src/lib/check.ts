@@ -69,7 +69,7 @@ export function checkRequest(req: AceRequest): CheckResult[] {
   const passed: Record<CheckId, boolean> = {
     repro: !isBug || req.repro.trim() !== '',
     doneWhen: req.doneWhen.trim() !== '',
-    vague: !VAGUE.test(what) || (current !== '' && expected !== ''),
+    vague: what !== '' && (!VAGUE.test(what) || (current !== '' && expected !== '')),
     area: fields.some((f) => FILE.test(f) || ROUTE.test(f) || AREA_WORD.test(f)),
     constraints: req.dontTouch.trim() !== '',
     expected: expected !== '' && !repeatsRequest(expected, what),

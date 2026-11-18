@@ -42,7 +42,7 @@ const NOTE_CHECKS: Record<Field, CheckResult['id'][]> = {
 };
 
 const Meter = ({ value, className, children }: { value: number; className: string; children?: ReactNode }) => (
-  <div className={className} role="meter" aria-label="Clarity score" aria-valuemin={0} aria-valuemax={6} aria-valuenow={value}>
+  <div className={className} role="meter" aria-label="Clarity score" aria-valuemin={0} aria-valuemax={6} aria-valuenow={value} aria-valuetext={`${value} of 6 checks pass`}>
     {children}
   </div>
 );
@@ -101,8 +101,10 @@ function Guided({ results, passed }: { results: CheckResult[]; passed: number })
 
       {gap ? (
         <div className="coach-card">
-          <p className="coach-count">Gap {i + 1} of {gaps.length} · {gap.label}</p>
-          <p className="coach-question">{gap.question}</p>
+          <div aria-live="polite">
+            <p className="coach-count">Gap {i + 1} of {gaps.length} · {gap.label}</p>
+            <p className="coach-question">{gap.question}</p>
+          </div>
           <div className="coach-nav">
             <button type="button" className="btn" onClick={() => setI((n) => (n - 1 + gaps.length) % gaps.length)} disabled={gaps.length < 2}>Previous gap</button>
             <button type="button" className="btn" onClick={() => setI((n) => (n + 1) % gaps.length)} disabled={gaps.length < 2}>Next gap</button>
@@ -168,7 +170,8 @@ export default function App() {
   const showBriefText = view !== 'annotated' || rawBrief;
 
   useEffect(() => {
-    if (copy === 'idle') return;
+    // Only success clears itself; the failure message is an instruction the user still needs.
+    if (copy !== 'ok') return;
     const t = setTimeout(() => setCopy('idle'), 2000);
     return () => clearTimeout(t);
   }, [copy]);
@@ -250,7 +253,7 @@ export default function App() {
             <>
               <header className="margin-head">
                 <Meter value={passed} className="margin-score">
-                  <span className="score-num">{passed}</span>/6 clear · {passed === 6 ? 'nothing missing' : `${6 - passed} notes`}
+                  <span className="score-num">{passed}</span>/6 clear · {passed === 6 ? 'nothing missing' : `${6 - passed} note${6 - passed === 1 ? '' : 's'}`}
                 </Meter>
                 <button type="button" className="btn" aria-pressed={rawBrief} onClick={() => setRawBrief(!rawBrief)}>Markdown view</button>
               </header>
@@ -267,7 +270,7 @@ export default function App() {
                   {editedBrief !== null && (
                     <span className="edited">
                       Edited ·{' '}
-                      <button type="button" className="link-btn" onClick={() => setEditedBrief(null)}>Reset</button>
+                      <button type="button" className="link-btn" onClick={() => { setEditedBrief(null); document.getElementById('brief')?.focus(); }}>Reset</button>
                     </span>
                   )}
                 </div>

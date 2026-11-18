@@ -20,7 +20,8 @@
 .field { display: grid; gap: 0.25rem; }
 .field label { font-size: 0.875rem; font-weight: var(--fw-label); }
 .field textarea, .brief {
-  width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--purple-border); border-radius: 8px;
+  /* --purple (7.4:1) so field edges meet WCAG 1.4.11's 3:1; --purple-border was 1.4:1. */
+  width: 100%; padding: 0.5rem 0.75rem; border: 1px solid var(--purple); border-radius: 8px;
   background: var(--white); color: var(--purple-ink); font: inherit; font-size: 0.9375rem; resize: vertical;
 }
 .field textarea:focus-visible, .brief:focus-visible { border-color: var(--purple); }
@@ -42,7 +43,6 @@
 
 .copy { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem; }
 .copy-status { font-size: 0.875rem; color: var(--purple-ink); }
-.copy-status:empty { display: none; }
 
 .icon { flex: none; }
 .icon-warn { color: var(--purple); }
