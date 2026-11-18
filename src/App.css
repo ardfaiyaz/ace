@@ -4,6 +4,8 @@
 .page { max-width: 76rem; margin: 0 auto; padding: 2.5rem 1rem 4rem; }
 .page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem 2rem; margin-bottom: 2rem; }
 .page-head h1 { margin: 0; font-size: 2rem; font-weight: var(--fw-title); letter-spacing: -0.02em; color: var(--purple); line-height: 1.1; }
+.brand { display: flex; align-items: center; gap: 0.5rem; }
+.brand-logo { flex: none; width: 2.5rem; height: 2.5rem; }
 .tagline { margin: 0.25rem 0 0; color: var(--purple-dark); }
 .sample-buttons { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .disclaimer { flex-basis: 100%; margin: 0; font-size: 0.875rem; color: var(--purple-dark); }

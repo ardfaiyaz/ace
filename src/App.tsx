@@ -13,6 +13,13 @@ const CheckIcon = () => (
 const CopyIcon = () => (
   <svg {...svg} className="icon"><rect x="9" y="9" width="13" height="13" rx="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>
 );
+// Logo G "Missing piece": the crossbar is the gap you forgot, sliding into place. Decorative next to the "Ace" heading text.
+const AceLogo = () => (
+  <svg className="brand-logo" viewBox="0 0 256 256" width="40" height="40" aria-hidden="true">
+    <polygon points="108,32 148,32 220,224 178,224 128,92 78,224 36,224" style={{ fill: 'var(--purple)' }} />
+    <rect x="66" y="150" width="124" height="30" rx="4" strokeWidth="9" transform="rotate(-9 128 165)" style={{ fill: 'var(--purple)', stroke: 'var(--white)' }} />
+  </svg>
+);
 
 type Field = Exclude<keyof AceRequest, 'type'>;
 const FIELDS: { key: Field; label: string; help: string; rows: number }[] = [
@@ -195,7 +202,7 @@ export default function App() {
     <div className="page">
       <header className="page-head">
         <div>
-          <h1>Ace</h1>
+          <h1 className="brand"><AceLogo />Ace</h1>
           <p className="tagline">Catch vague requests before your AI codes them.</p>
         </div>
         <div className="sample-buttons">
